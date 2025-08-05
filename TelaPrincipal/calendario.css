@@ -1,0 +1,158 @@
+/* ==========================================================================
+   CSS Específico para a Página de Cronograma
+   ========================================================================== */
+
+.cronograma-view {
+    display: flex;
+    gap: 25px;
+    align-items: flex-start;
+    padding: 10px;
+}
+
+.calendar-container {
+    background: rgba(37, 37, 37, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 25px;
+    flex-grow: 1;
+    max-width: 550px;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.calendar-header h3 {
+    font-size: 1.3em;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.calendar-header button {
+    background: none;
+    border: none;
+    color: #e0e0e0;
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.calendar-header button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.calendar-weekdays,
+.calendar-body {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+}
+
+.calendar-weekdays div {
+    font-weight: 600;
+    color: #a0a0a0;
+    text-align: center;
+    font-size: 0.9em;
+    padding-bottom: 10px;
+}
+
+.calendar-body div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    position: relative;
+    font-size: 1.1em;
+}
+
+.calendar-body div.empty {
+    cursor: default;
+    opacity: 0;
+}
+
+.calendar-body div:not(.empty):hover {
+    background-color: #333;
+}
+
+.calendar-body div.selected {
+    background-color: #ff9800;
+    color: #1a1a1a;
+    font-weight: 600;
+}
+
+/* Bolinha que indica um lembrete no dia */
+.calendar-body div.has-reminder::after {
+    content: '';
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    background-color: #ff9800;
+    border-radius: 50%;
+}
+
+/* Muda a cor da bolinha quando o dia está selecionado */
+.calendar-body div.selected.has-reminder::after {
+    background-color: #1a1a1a;
+}
+
+.reminder-form-container {
+    background-color: #252525;
+    padding: 25px;
+    border-radius: 10px;
+    flex-basis: 380px;
+    flex-shrink: 0;
+}
+
+.reminder-form-container h4 {
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+#reminder-form p {
+    margin-bottom: 15px;
+    background-color: #333;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#reminder-form textarea {
+    width: 100%;
+    padding: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+    background-color: #333;
+    border: 1px solid #444;
+    color: #e0e0e0;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    resize: vertical;
+}
+
+#reminder-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff9800;
+    border: none;
+    border-radius: 8px;
+    color: #1a1a1a;
+    font-weight: 600;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#reminder-form button:hover {
+    background-color: #e68900;
+}
