@@ -1,22 +1,135 @@
-/* ==========================================================================
-   CSS Específico para a Página de Cronograma
-   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
-.cronograma-view {
-    display: flex;
-    gap: 25px;
-    align-items: flex-start;
-    padding: 10px;
+:root {
+    --bg-color: #121212;
+    /* Fundo mais escuro para o efeito de vidro destacar */
+    --widget-bg-color: rgba(37, 37, 37, 0.5);
+    /* Cor base do vidro */
+    --widget-border-color: rgba(255, 255, 255, 0.1);
+    --sidebar-bg-color: #1f1f1f;
+    --text-color: #e0e0e0;
+    --text-muted-color: #a0a0a0;
+    --accent-color: #ff9800;
+    --danger-color: #f44336;
+    --selected-day-color: #ff4500;
+    /* Laranja avermelhado para o dia selecionado */
 }
 
-.calendar-container {
-    background: rgba(37, 37, 37, 0.6);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    /* Adicionando formas no fundo para simular o efeito da imagem */
+    background-image:
+        radial-gradient(circle at 15% 15%, rgba(124, 77, 255, 0.3) 0%, transparent 40%),
+        radial-gradient(circle at 85% 90%, rgba(68, 138, 255, 0.25) 0%, transparent 40%);
+    color: var(--text-color);
+    overflow: hidden;
+}
+
+.app-container {
+    display: grid;
+    grid-template-columns: 90px 1fr 350px;
+    height: 100vh;
+    padding: 15px;
+    gap: 20px;
+}
+
+/* --- Barra Lateral Esquerda (Navegação) --- */
+.sidebar-nav {
+    background-color: var(--sidebar-bg-color);
+    border-radius: 10px;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid var(--widget-border-color);
+}
+
+.sidebar-logo {
+    font-size: 2.5em;
+    color: var(--accent-color);
+    margin-bottom: 30px;
+}
+
+.sidebar-nav nav ul {
+    list-style: none;
+    width: 100%;
+    padding: 0;
+}
+
+.sidebar-nav li a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted-color);
+    text-decoration: none;
+    padding: 15px 0;
+    transition: all 0.3s ease;
+    gap: 8px;
+    position: relative;
+}
+
+.sidebar-nav li a i {
+    font-size: 1.5em;
+}
+
+.sidebar-nav li a span {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.sidebar-nav li.active a,
+.sidebar-nav li a:hover {
+    color: #ffffff;
+    background-color: rgba(255, 152, 0, 0.2);
+}
+
+.sidebar-nav li.active a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 60%;
+    width: 4px;
+    background-color: var(--accent-color);
+    border-radius: 0 4px 4px 0;
+}
+
+/* --- Conteúdo Principal (Centro) --- */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+}
+
+/* NOVO: Grid para Calendário e Formulário */
+.top-content-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    /* Calendário ocupa espaço automático, formulário preenche o resto */
+    gap: 20px;
+    align-items: start;
+    /* Alinha os itens no topo */
+}
+
+/* ATUALIZADO: Estilo de Vidro para o Calendário */
+.calendar-widget {
+    background: var(--widget-bg-color);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--widget-border-color);
+    border-radius: 16px;
     padding: 25px;
-    flex-grow: 1;
-    max-width: 550px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 .calendar-header {
@@ -26,133 +139,387 @@
     margin-bottom: 20px;
 }
 
-.calendar-header h3 {
-    font-size: 1.3em;
-    font-weight: 500;
+.calendar-header h2 {
+    font-size: 1.4em;
     text-transform: capitalize;
 }
 
-.calendar-header button {
+.nav-button {
     background: none;
     border: none;
-    color: #e0e0e0;
+    color: var(--text-muted-color);
     font-size: 1.2em;
     cursor: pointer;
-    padding: 5px 10px;
-    border-radius: 5px;
-    transition: background-color 0.2s ease-in-out;
+    transition: color 0.3s;
 }
 
-.calendar-header button:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+.nav-button:hover {
+    color: var(--text-color);
 }
+
 
 .calendar-weekdays,
-.calendar-body {
+.calendar-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 10px;
+    /* Aumentei o espaçamento para um visual mais limpo */
 }
 
-.calendar-weekdays div {
-    font-weight: 600;
-    color: #a0a0a0;
+.calendar-weekdays span {
     text-align: center;
-    font-size: 0.9em;
+    font-weight: 600;
+    font-size: 0.8em;
+    color: var(--text-muted-color);
     padding-bottom: 10px;
 }
 
-.calendar-body div {
+.day-cell {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
     cursor: pointer;
-    border-radius: 8px;
-    transition: background-color 0.3s;
+    transition: background-color 0.2s, color 0.2s;
     position: relative;
-    font-size: 1.1em;
+    font-size: 0.9em;
 }
 
-.calendar-body div.empty {
+.day-cell.empty-day {
     cursor: default;
     opacity: 0;
 }
 
-.calendar-body div:not(.empty):hover {
-    background-color: #333;
+.day-cell:not(.empty-day):hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
-.calendar-body div.selected {
-    background-color: #ff9800;
-    color: #1a1a1a;
+.selected-day {
+    background-color: var(--selected-day-color);
+    color: #ffffff;
     font-weight: 600;
 }
 
-/* Bolinha que indica um lembrete no dia */
-.calendar-body div.has-reminder::after {
+/* Marcas de Lembrete e Prova */
+.day-cell.has-reminder::after,
+.day-cell.has-prova::after {
     content: '';
     position: absolute;
-    bottom: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 6px;
-    height: 6px;
-    background-color: #ff9800;
+    bottom: 6px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
+    background-color: var(--accent-color);
 }
 
-/* Muda a cor da bolinha quando o dia está selecionado */
-.calendar-body div.selected.has-reminder::after {
-    background-color: #1a1a1a;
+.day-cell.has-prova::after {
+    background-color: var(--selected-day-color);
+    /* Diferencia a cor da marca de prova */
 }
 
-.reminder-form-container {
-    background-color: #252525;
+.selected-day.has-reminder::after,
+.selected-day.has-prova::after {
+    background-color: #ffffff;
+}
+
+/* ATUALIZADO: Estilo de Vidro para Adicionar Prova */
+.add-prova-widget {
+    background: var(--widget-bg-color);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--widget-border-color);
+    border-radius: 16px;
     padding: 25px;
-    border-radius: 10px;
-    flex-basis: 380px;
-    flex-shrink: 0;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
-.reminder-form-container h4 {
-    margin-bottom: 15px;
+.add-prova-widget h4 {
+    margin-bottom: 20px;
     font-size: 1.2em;
 }
 
-#reminder-form p {
+.add-prova-widget .form-group {
     margin-bottom: 15px;
-    background-color: #333;
-    padding: 10px;
-    border-radius: 5px;
 }
 
-#reminder-form textarea {
+.add-prova-widget label {
+    display: block;
+    font-size: 0.9em;
+    color: var(--text-muted-color);
+    margin-bottom: 5px;
+}
+
+.add-prova-widget input {
     width: 100%;
-    padding: 10px;
-    font-family: 'Poppins', sans-serif;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    padding: 12px;
+    border-radius: 8px;
     font-size: 1em;
-    background-color: #333;
-    border: 1px solid #444;
-    color: #e0e0e0;
-    border-radius: 5px;
-    margin-bottom: 15px;
-    resize: vertical;
 }
 
-#reminder-form button {
+.add-prova-widget input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.8);
+}
+
+
+.add-prova-widget button {
     width: 100%;
     padding: 12px;
-    background-color: #ff9800;
-    border: none;
-    border-radius: 8px;
+    background: var(--accent-color);
     color: #1a1a1a;
     font-weight: 600;
-    font-size: 1em;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s;
 }
 
-#reminder-form button:hover {
-    background-color: #e68900;
+.add-prova-widget button:hover {
+    background: #ffb74d;
+}
+
+/* --- Widget de Tarefas (Todo) --- */
+.todo-widget {
+    background: var(--sidebar-bg-color);
+    border: 1px solid var(--widget-border-color);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+.todo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid var(--widget-border-color);
+}
+
+.todo-body {
+    padding: 10px 20px;
+    max-height: 400px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+#reminder-list {
+    list-style: none;
+}
+
+#reminder-list li {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--widget-border-color);
+}
+
+#reminder-list li:last-child {
+    border-bottom: none;
+}
+
+#reminder-list .task-text {
+    flex-grow: 1;
+    margin: 0 15px;
+}
+
+#reminder-list .completed .task-text {
+    text-decoration: line-through;
+    color: var(--text-muted-color);
+}
+
+.task-actions button {
+    background: none;
+    border: none;
+    color: var(--text-muted-color);
+    cursor: pointer;
+    font-size: 1em;
+    margin-left: 10px;
+}
+
+.task-actions .edit-btn:hover {
+    color: var(--accent-color);
+}
+
+.task-actions .delete-btn:hover {
+    color: var(--danger-color);
+}
+
+.todo-footer {
+    padding: 20px;
+    border-top: 1px solid var(--widget-border-color);
+}
+
+#add-reminder-form {
+    display: flex;
+    gap: 10px;
+}
+
+#add-reminder-form input {
+    flex-grow: 1;
+    background: #333;
+    border: 1px solid #444;
+    color: var(--text-color);
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 1em;
+}
+
+#add-reminder-form button {
+    background: var(--accent-color);
+    color: #1a1a1a;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    padding: 0 20px;
+    cursor: pointer;
+}
+
+/* --- Barra Lateral Direita (Provas) --- */
+.side-column {
+    background-color: var(--sidebar-bg-color);
+    border: 1px solid var(--widget-border-color);
+    border-radius: 10px;
+    padding: 25px;
+    overflow-y: auto;
+}
+
+.provas-widget h4 {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.provas-widget ul {
+    list-style: none;
+}
+
+.provas-widget li {
+    background-color: #333;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border-left: 4px solid var(--accent-color);
+}
+
+.provas-widget li strong {
+    display: block;
+}
+
+.provas-widget li span {
+    font-size: 0.9em;
+    color: var(--text-muted-color);
+}
+
+/* --- Componentes (Switch e Modal) --- */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #444;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked+.slider {
+    background-color: var(--accent-color);
+}
+
+input:checked+.slider:before {
+    transform: translateX(20px);
+}
+
+/* (Restante do CSS do modal e outros componentes sem alterações) */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s;
+    z-index: 1000;
+}
+
+.modal-overlay.visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal-content {
+    background: var(--widget-bg-color);
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+}
+
+#edit-reminder-textarea {
+    width: 100%;
+    background: #333;
+    border: 1px solid #444;
+    color: var(--text-color);
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 1em;
+    margin-bottom: 20px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.modal-actions button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+#cancel-edit-btn {
+    background: #444;
+    color: var(--text-color);
+}
+
+.modal-actions button[type="submit"] {
+    background: var(--accent-color);
+    color: #1a1a1a;
 }
