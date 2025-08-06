@@ -4,31 +4,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const monthYearHeader = document.getElementById('month-year-header');
     const prevMonthBtn = document.getElementById('prev-month-button');
     const nextMonthBtn = document.getElementById('next-month-button');
-    // Tarefas (To-Do)
     const todoTitle = document.getElementById('todo-title');
     const reminderList = document.getElementById('reminder-list');
     const addReminderForm = document.getElementById('add-reminder-form');
     const newReminderInput = document.getElementById('new-reminder-input');
-    // Provas
+    const showCompletedToggle = document.getElementById('show-completed-toggle');
     const addProvaForm = document.getElementById('add-prova-form');
     const provaNameInput = document.getElementById('prova-name-input');
     const provaDateInput = document.getElementById('prova-date-input');
     const provasList = document.getElementById('provas-list');
+    const editModal = document.getElementById('edit-modal');
 
     // --- Estado da Aplicação ---
     let dateForCalendar = new Date();
-    let selectedDate = new Date().toISOString().split('T')[0];
+    let selectedDate = new Date().toISOString().split('T')[0]; // Formato AAAA-MM-DD
     let reminders = JSON.parse(localStorage.getItem('study_reminders_v2')) || [];
     let provas = JSON.parse(localStorage.getItem('study_provas')) || [];
+    let currentEditingReminderId = null;
+
+    // --- Funções Auxiliares ---
+    const saveData = () => {
+        localStorage.setItem('study_reminders_v2', JSON.stringify(reminders));
+        localStorage.setItem('study_provas', JSON.stringify(provas));
+    };
 
     // --- Funções de Renderização ---
+
     const renderCalendar = () => {
-        // ... (lógica do calendário)
         const year = dateForCalendar.getFullYear();
         const month = dateForCalendar.getMonth();
         calendarGrid.innerHTML = '';
         monthYearHeader.textContent = new Date(year, month).toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' });
-        
+
         const firstDayOfMonth = new Date(year, month, 1).getDay();
         const daysInMonth = new Date(year, month + 1, 0).getDate();
 
@@ -42,42 +49,91 @@ document.addEventListener('DOMContentLoaded', () => {
             dayCell.className = 'day-cell';
             dayCell.textContent = day;
             dayCell.dataset.date = dateStr;
-            
+
             if (dateStr === selectedDate) dayCell.classList.add('selected-day');
-            // ADICIONADO: Lógica para marcar provas
             if (provas.some(p => p.date === dateStr)) dayCell.classList.add('has-prova');
             else if (reminders.some(r => r.date === dateStr && !r.completed)) dayCell.classList.add('has-reminder');
-            
+
             calendarGrid.appendChild(dayCell);
         }
     };
 
-    const renderReminders = () => { /* ... (código sem alterações) ... */ };
-    
-    // NOVA FUNÇÃO para renderizar a lista de provas
+    // ** LÓGICA DOS LEMBRETES - CORRIGIDA E COMPLETA **
+    const renderReminders = () => {
+        reminderList.innerHTML = '';
+        const dateObj = new Date(selectedDate + 'T00:00:00');
+        const formattedDate = dateObj.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long' });
+        todoTitle.textContent = `Lembretes de ${formattedDate}`;
+
+        const showCompleted = showCompletedToggle.checked;
+        const dayReminders = reminders
+            .filter(r => r.date === selectedDate)
+            .filter(r => showCompleted || !r.completed);
+
+        if (dayReminders.length === 0) {
+            reminderList.innerHTML = '<li>Nenhuma tarefa para este dia.</li>';
+            return;
+        }
+
+        dayReminders.forEach(reminder => {
+            const li = document.createElement('li');
+            li.className = reminder.completed ? 'completed' : '';
+            li.dataset.id = reminder.id;
+
+            li.innerHTML = `
+                <button class="complete-btn"><i class="fas ${reminder.completed ? 'fa-check-square' : 'fa-square'}"></i></button>
+                <span class="task-text">${reminder.text}</span>
+                <div class="task-actions">
+                    <button class="edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                    <button class="delete-btn"><i class="fas fa-trash-alt"></i></button>
+                </div>
+            `;
+            reminderList.appendChild(li);
+        });
+    };
+
     const renderProvas = () => {
         provasList.innerHTML = '';
         if (provas.length === 0) {
             provasList.innerHTML = '<li>Nenhuma prova adicionada.</li>';
             return;
         }
-        // Ordena as provas por data
-        const sortedProvas = provas.sort((a, b) => new Date(a.date) - new Date(b.date));
+        const sortedProvas = [...provas].sort((a, b) => new Date(a.date) - new Date(b.date));
         sortedProvas.forEach(prova => {
             const li = document.createElement('li');
-            const formattedDate = new Date(prova.date + 'T00:00:00').toLocaleDateString('pt-BR', {dateStyle: 'long'});
+            const formattedDate = new Date(prova.date + 'T00:00:00').toLocaleDateString('pt-BR', { dateStyle: 'long' });
             li.innerHTML = `<strong>${prova.name}</strong><span>Prova em: ${formattedDate}</span>`;
             provasList.appendChild(li);
         });
     };
 
-    const saveData = () => {
-        localStorage.setItem('study_reminders_v2', JSON.stringify(reminders));
-        localStorage.setItem('study_provas', JSON.stringify(provas));
+    // --- Lógica do Modal de Edição ---
+    const openEditModal = (reminder) => {
+        currentEditingReminderId = reminder.id;
+        editModal.innerHTML = `
+            <div class="modal-content">
+                <h4>Editar Tarefa</h4>
+                <form id="edit-reminder-form">
+                    <textarea id="edit-reminder-textarea" rows="4">${reminder.text}</textarea>
+                    <div class="modal-actions">
+                        <button type="button" id="cancel-edit-btn">Cancelar</button>
+                        <button type="submit">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        `;
+        editModal.classList.add('visible');
     };
 
+    const closeEditModal = () => {
+        editModal.classList.remove('visible');
+        editModal.innerHTML = '';
+        currentEditingReminderId = null;
+    };
+
+
     // --- Event Listeners ---
-    // (Listeners antigos do calendário e tarefas permanecem)
+
     calendarGrid.addEventListener('click', (e) => {
         const dayCell = e.target.closest('.day-cell:not(.empty-day)');
         if (!dayCell) return;
@@ -86,7 +142,57 @@ document.addEventListener('DOMContentLoaded', () => {
         renderReminders();
     });
 
-    // NOVO LISTENER para o formulário de provas
+    prevMonthBtn.addEventListener('click', () => {
+        dateForCalendar.setMonth(dateForCalendar.getMonth() - 1);
+        renderCalendar();
+    });
+
+    nextMonthBtn.addEventListener('click', () => {
+        dateForCalendar.setMonth(dateForCalendar.getMonth() + 1);
+        renderCalendar();
+    });
+
+    addReminderForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const text = newReminderInput.value.trim();
+        if (text) {
+            reminders.push({
+                id: Date.now(),
+                text: text,
+                date: selectedDate,
+                completed: false
+            });
+            saveData();
+            renderReminders();
+            renderCalendar();
+            newReminderInput.value = '';
+        }
+    });
+
+    reminderList.addEventListener('click', (e) => {
+        const target = e.target;
+        const li = target.closest('li');
+        if (!li || !li.dataset.id) return;
+
+        const reminderId = Number(li.dataset.id);
+        const reminder = reminders.find(r => r.id === reminderId);
+
+        if (target.closest('.complete-btn')) {
+            reminder.completed = !reminder.completed;
+        } else if (target.closest('.delete-btn')) {
+            reminders = reminders.filter(r => r.id !== reminderId);
+        } else if (target.closest('.edit-btn')) {
+            openEditModal(reminder);
+            return; // Impede re-renderização imediata
+        }
+
+        saveData();
+        renderReminders();
+        renderCalendar();
+    });
+
+    showCompletedToggle.addEventListener('change', renderReminders);
+
     addProvaForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const nome = provaNameInput.value.trim();
@@ -94,20 +200,38 @@ document.addEventListener('DOMContentLoaded', () => {
         if (nome && data) {
             provas.push({ id: Date.now(), name: nome, date: data });
             saveData();
-            renderProvas(); // Atualiza a lista da direita
-            renderCalendar(); // Atualiza o calendário com a nova marcação
+            renderProvas();
+            renderCalendar();
             addProvaForm.reset();
             alert('Prova adicionada com sucesso!');
         }
     });
 
-    // (Listeners restantes: prev/next, add tarefa, editar, excluir, etc.)
+    editModal.addEventListener('click', (e) => {
+        if (e.target.id === 'cancel-edit-btn' || e.target.classList.contains('modal-overlay')) {
+            closeEditModal();
+        }
+    });
+
+    editModal.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (e.target.id !== 'edit-reminder-form') return;
+        
+        const newText = document.getElementById('edit-reminder-textarea').value.trim();
+        const reminder = reminders.find(r => r.id === currentEditingReminderId);
+        if (reminder && newText) {
+            reminder.text = newText;
+            saveData();
+            renderReminders();
+            closeEditModal();
+        }
+    });
 
     // --- Inicialização ---
     const init = () => {
         renderCalendar();
         renderReminders();
-        renderProvas(); // Renderiza a lista de provas ao carregar a página
+        renderProvas();
     };
 
     init();

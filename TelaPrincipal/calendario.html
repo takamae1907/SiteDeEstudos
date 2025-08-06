@@ -14,8 +14,8 @@
             <div class="sidebar-logo"><i class="fa-solid fa-skull-crossbones"></i></div>
             <nav>
                 <ul>
-                    <li><a href="dashboard.html"><i class="fa-solid fa-house"></i><span>Home</span></a></li>
-                    <li class="active"><a href="cronograma_integrado.html"><i class="fa-solid fa-calendar-days"></i><span>Cronograma</span></a></li>
+                    <li><a href="TelaPrincipal.html"><i class="fa-solid fa-house"></i><span>Home</span></a></li>
+                    <li class="active"><a href="calendario.html"><i class="fa-solid fa-calendar-days"></i><span>Cronograma</span></a></li>
                     <li><a href="#"><i class="fa-solid fa-book-open"></i><span>Edital</span></a></li>
                     <li><a href="#"><i class="fa-solid fa-layer-group"></i><span>Flashcards</span></a></li>
                     <li><a href="#"><i class="fa-solid fa-list-check"></i><span>Questões</span></a></li>
@@ -26,6 +26,7 @@
         </aside>
 
         <main class="main-content">
+            
             <div class="top-content-grid">
                 <div class="calendar-widget">
                     <div class="calendar-header">
@@ -39,41 +40,44 @@
                     <div class="calendar-days" id="calendar-days-grid"></div>
                 </div>
                 
-                <div class="add-prova-widget">
-                    <h4><i class="fas fa-calendar-plus"></i> Adicionar Prova</h4>
-                    <form id="add-prova-form">
-                        <div class="form-group">
-                            <label for="prova-name-input">Nome da Prova ou Concurso</label>
-                            <input type="text" id="prova-name-input" placeholder="Ex: Polícia Federal" required>
+                <div class="right-forms-column">
+                    <div class="add-prova-widget">
+                        <h4><i class="fas fa-calendar-plus"></i> Adicionar Prova</h4>
+                        <form id="add-prova-form">
+                            <div class="form-group">
+                                <label for="prova-name-input">Nome da Prova ou Concurso</label>
+                                <input type="text" id="prova-name-input" placeholder="Ex: Polícia Federal" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="prova-date-input">Data da Prova</label>
+                                <input type="date" id="prova-date-input" required>
+                            </div>
+                            <button type="submit">Salvar Prova</button>
+                        </form>
+                    </div>
+
+                    <div class="todo-widget">
+                        <div class="todo-header">
+                            <h3 id="todo-title">Lembretes do Dia</h3>
+                            <div class="todo-filter">
+                                <label for="show-completed-toggle">Mostrar Concluídos</label>
+                                <label class="switch">
+                                    <input type="checkbox" id="show-completed-toggle">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="prova-date-input">Data da Prova</label>
-                            <input type="date" id="prova-date-input" required>
+                        <div class="todo-body"><ul id="reminder-list"></ul></div>
+                        <div class="todo-footer">
+                            <form id="add-reminder-form">
+                                <input type="text" id="new-reminder-input" placeholder="Adicionar nova tarefa..." required>
+                                <button type="submit"><i class="fas fa-plus"></i> Adicionar</button>
+                            </form>
                         </div>
-                        <button type="submit">Salvar Prova</button>
-                    </form>
+                    </div>
                 </div>
             </div>
 
-            <div class="todo-widget">
-                <div class="todo-header">
-                    <h3 id="todo-title">Lembretes do Dia</h3>
-                    <div class="todo-filter">
-                        <label for="show-completed-toggle">Mostrar Concluídos</label>
-                        <label class="switch">
-                            <input type="checkbox" id="show-completed-toggle">
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
-                </div>
-                <div class="todo-body"><ul id="reminder-list"></ul></div>
-                <div class="todo-footer">
-                    <form id="add-reminder-form">
-                        <input type="text" id="new-reminder-input" placeholder="Adicionar nova tarefa para o dia selecionado..." required>
-                        <button type="submit"><i class="fas fa-plus"></i> Adicionar</button>
-                    </form>
-                </div>
-            </div>
         </main>
 
         <aside class="side-column">

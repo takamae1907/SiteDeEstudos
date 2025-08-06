@@ -2,17 +2,15 @@
 
 :root {
     --bg-color: #121212;
-    /* Fundo mais escuro para o efeito de vidro destacar */
     --widget-bg-color: rgba(37, 37, 37, 0.5);
-    /* Cor base do vidro */
     --widget-border-color: rgba(255, 255, 255, 0.1);
-    --sidebar-bg-color: #1f1f1f;
+    /* ALTERADO: Cor de fundo das barras laterais restaurada para um tom mais claro */
+    --sidebar-bg-color: #252525;
     --text-color: #e0e0e0;
     --text-muted-color: #a0a0a0;
     --accent-color: #ff9800;
     --danger-color: #f44336;
     --selected-day-color: #ff4500;
-    /* Laranja avermelhado para o dia selecionado */
 }
 
 * {
@@ -24,7 +22,6 @@
 body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--bg-color);
-    /* Adicionando formas no fundo para simular o efeito da imagem */
     background-image:
         radial-gradient(circle at 15% 15%, rgba(124, 77, 255, 0.3) 0%, transparent 40%),
         radial-gradient(circle at 85% 90%, rgba(68, 138, 255, 0.25) 0%, transparent 40%);
@@ -105,24 +102,31 @@ body {
 
 /* --- Conteúdo Principal (Centro) --- */
 .main-content {
+    /* O main-content não precisa mais de regras de layout complexas */
+    overflow-y: auto;
+    /* Permite que toda a área central role se necessário */
+    padding-right: 5px;
+    /* Evita que a barra de rolagem cole nos widgets */
+}
+
+.top-content-grid {
+    display: grid;
+    grid-template-columns: minmax(400px, 500px) 1fr;
+    gap: 20px;
+    align-items: start;
+}
+
+/* NOVO: Container para empilhar os formulários da direita */
+.right-forms-column {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    overflow-y: auto;
 }
 
-/* NOVO: Grid para Calendário e Formulário */
-.top-content-grid {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    /* Calendário ocupa espaço automático, formulário preenche o resto */
-    gap: 20px;
-    align-items: start;
-    /* Alinha os itens no topo */
-}
-
-/* ATUALIZADO: Estilo de Vidro para o Calendário */
-.calendar-widget {
+/* --- Estilos dos Widgets --- */
+.calendar-widget,
+.add-prova-widget,
+.todo-widget {
     background: var(--widget-bg-color);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -157,13 +161,11 @@ body {
     color: var(--text-color);
 }
 
-
 .calendar-weekdays,
 .calendar-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 10px;
-    /* Aumentei o espaçamento para um visual mais limpo */
 }
 
 .calendar-weekdays span {
@@ -201,7 +203,6 @@ body {
     font-weight: 600;
 }
 
-/* Marcas de Lembrete e Prova */
 .day-cell.has-reminder::after,
 .day-cell.has-prova::after {
     content: '';
@@ -215,23 +216,11 @@ body {
 
 .day-cell.has-prova::after {
     background-color: var(--selected-day-color);
-    /* Diferencia a cor da marca de prova */
 }
 
 .selected-day.has-reminder::after,
 .selected-day.has-prova::after {
     background-color: #ffffff;
-}
-
-/* ATUALIZADO: Estilo de Vidro para Adicionar Prova */
-.add-prova-widget {
-    background: var(--widget-bg-color);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--widget-border-color);
-    border-radius: 16px;
-    padding: 25px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 .add-prova-widget h4 {
@@ -264,7 +253,6 @@ body {
     filter: invert(0.8);
 }
 
-
 .add-prova-widget button {
     width: 100%;
     padding: 12px;
@@ -281,11 +269,7 @@ body {
     background: #ffb74d;
 }
 
-/* --- Widget de Tarefas (Todo) --- */
 .todo-widget {
-    background: var(--sidebar-bg-color);
-    border: 1px solid var(--widget-border-color);
-    border-radius: 12px;
     display: flex;
     flex-direction: column;
 }
@@ -300,9 +284,10 @@ body {
 
 .todo-body {
     padding: 10px 20px;
-    max-height: 400px;
     overflow-y: auto;
     flex-grow: 1;
+    max-height: 250px;
+    /* Altura máxima para evitar que cresça demais */
 }
 
 #reminder-list {
@@ -412,7 +397,7 @@ body {
     color: var(--text-muted-color);
 }
 
-/* --- Componentes (Switch e Modal) --- */
+/* --- Componentes (Switch e Modal) --- INALTERADOS */
 .switch {
     position: relative;
     display: inline-block;
@@ -457,8 +442,6 @@ input:checked+.slider {
 input:checked+.slider:before {
     transform: translateX(20px);
 }
-
-/* (Restante do CSS do modal e outros componentes sem alterações) */
 
 .modal-overlay {
     position: fixed;
