@@ -506,3 +506,130 @@ input:checked+.slider:before {
     background: var(--accent-color);
     color: #1a1a1a;
 }
+/* --- INÍCIO DA RESPONSIVIDADE --- */
+
+/* Para telas menores de notebooks e tablets maiores */
+@media (max-width: 1200px) {
+    .app-container {
+        /* Converte o layout de 3 para 2 colunas, movendo a coluna da direita para baixo */
+        grid-template-columns: 90px 1fr;
+        grid-template-rows: 1fr auto; /* Linha principal e uma linha automática para o conteúdo movido */
+        grid-template-areas:
+            "nav main"
+            "nav aside";
+    }
+
+    .main-content {
+        grid-area: main;
+    }
+
+    .side-column {
+        grid-area: aside;
+        height: auto; /* Altura automática pois não preenche mais a tela toda */
+        max-height: 400px; /* Evita que fique muito grande */
+    }
+}
+
+
+/* Para tablets em modo retrato */
+@media (max-width: 992px) {
+    .top-content-grid {
+        /* O calendário e a coluna de formulários agora ficam um sobre o outro */
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* Para celulares */
+@media (max-width: 768px) {
+    body {
+        overflow-y: auto; /* Permite a rolagem normal da página no celular */
+    }
+
+    .app-container {
+        /* Converte todo o layout para uma única coluna vertical */
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    /* Transforma a barra lateral em uma 'tab bar' fixa no rodapé */
+    .sidebar-nav {
+        order: 3; /* Coloca a navegação no final da ordem dos elementos */
+        flex-direction: row;
+        justify-content: space-around;
+        position: sticky;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 70px;
+        padding: 5px 0;
+        border-radius: 16px 16px 0 0;
+        z-index: 1000;
+        background: rgba(37, 37, 37, 0.8); /* Fundo com mais transparência */
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+    }
+    
+    .sidebar-logo {
+        display: none; /* Esconde o logo para economizar espaço */
+    }
+
+    .sidebar-nav nav {
+        width: 100%;
+    }
+
+    .sidebar-nav nav ul {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+    }
+
+    .sidebar-nav li a span {
+        /* Esconde o texto dos ícones para um visual mais limpo */
+        display: none;
+    }
+
+    .sidebar-nav li a i {
+        font-size: 1.8em; /* Aumenta um pouco o ícone */
+    }
+
+    .sidebar-nav li.active a::before {
+        /* A marcação de ativo vira um ponto abaixo do ícone */
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        left: 50%;
+        top: auto;
+        bottom: 5px;
+        transform: translateX(-50%);
+    }
+
+    .main-content {
+        order: 1; /* Conteúdo principal vem primeiro */
+        overflow-y: visible;
+        padding-right: 0;
+    }
+
+    .side-column {
+        order: 2; /* "Próximas Provas" vem em segundo */
+        margin-top: 20px;
+    }
+    
+    .top-content-grid {
+        /* Garante que o grid interno tenha apenas uma coluna */
+        grid-template-columns: 1fr;
+    }
+
+    /* Reduz um pouco os títulos para caber melhor */
+    .calendar-header h2,
+    .add-prova-widget h4,
+    .todo-header h3 {
+        font-size: 1.2em;
+    }
+}
+
+/* --- FIM DA RESPONSIVIDADE --- */
