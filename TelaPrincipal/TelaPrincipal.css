@@ -9,13 +9,13 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #1a1a1a; /* Fundo principal escuro */
+    background-color: #1a1a1a;
     color: #e0e0e0;
 }
 
 .dashboard-container {
     display: grid;
-    grid-template-columns: 90px 1fr 320px; /* Sidebar, Conteúdo Principal, Coluna Direita */
+    grid-template-columns: 90px 1fr 320px;
     height: 100vh;
     gap: 20px;
     padding: 15px;
@@ -33,13 +33,14 @@ body {
 
 .sidebar-logo {
     font-size: 2.5em;
-    color: #ff9800; /* Laranja/Âmbar para destaque */
+    color: #E6DFD1;
     margin-bottom: 30px;
 }
 
 .sidebar-nav ul {
     list-style: none;
     width: 100%;
+    padding: 5%;
 }
 
 .sidebar-nav li a {
@@ -70,22 +71,9 @@ body {
     background-color: rgba(255, 152, 0, 0.2);
 }
 
-.sidebar-nav li.active a::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 60%;
-    width: 4px;
-    background-color: #ff9800;
-    border-radius: 0 4px 4px 0;
-}
-
-
 /* --- CONTEÚDO PRINCIPAL --- */
 .main-content {
-    overflow-y: auto; /* Permite rolagem se o conteúdo for grande */
+    overflow-y: auto;
 }
 
 .main-header {
@@ -104,7 +92,7 @@ body {
 }
 
 .main-header button {
-    background-color: #ff9800;
+    background-color: #E6DFD1;
     color: #1a1a1a;
     border: none;
     padding: 10px 20px;
@@ -115,7 +103,7 @@ body {
 }
 
 .main-header button:hover {
-    background-color: #e68900;
+    background-color: #E6DFD1;
 }
 
 .widgets-grid {
@@ -131,21 +119,79 @@ body {
     border-radius: 10px;
 }
 
-.welcome-widget h3 { font-size: 1.4em; }
-.welcome-widget .subtitle { font-weight: 400; color: #a0a0a0; }
-.progress-bar { background-color: #444; border-radius: 5px; height: 10px; margin: 15px 0 5px; }
-.progress { background-color: #4caf50; height: 100%; border-radius: 5px; }
-.stats { display: flex; gap: 40px; margin-top: 15px; }
+.welcome-widget h3 {
+    font-size: 1.4em;
+}
 
-.quote-widget h4 { margin-bottom: 10px; color: #a0a0a0; }
-.quote-widget blockquote { font-style: italic; font-size: 1.1em; border-left: 3px solid #ff9800; padding-left: 15px; }
-.quote-widget footer { font-style: normal; font-size: 0.9em; color: #a0a0a0; text-align: right; margin-top: 10px; }
+.welcome-widget .subtitle {
+    font-weight: 400;
+    color: #a0a0a0;
+}
 
-.editais-widget h4 { margin-bottom: 15px; }
-.editais-icons { display: flex; gap: 20px; font-size: 2.5em; color: #ff9800; margin-bottom: 15px; }
-.editais-icons i { cursor: pointer; transition: transform 0.3s; }
-.editais-icons i:hover { transform: scale(1.1); }
-.editais-widget p { color: #a0a0a0; font-size: 0.9em; }
+.progress-bar {
+    background-color: #444;
+    border-radius: 5px;
+    height: 10px;
+    margin: 15px 0 5px;
+}
+
+.progress {
+    background-color: #4caf50;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.stats {
+    display: flex;
+    gap: 40px;
+    margin-top: 15px;
+}
+
+.quote-widget h4 {
+    margin-bottom: 10px;
+    color: #a0a0a0;
+}
+
+.quote-widget blockquote {
+    font-style: italic;
+    font-size: 1.1em;
+    border-left: 3px solid #E6DFD1;
+    padding-left: 15px;
+}
+
+.quote-widget footer {
+    font-style: normal;
+    font-size: 0.9em;
+    color: #a0a0a0;
+    text-align: right;
+    margin-top: 10px;
+}
+
+.editais-widget h4 {
+    margin-bottom: 15px;
+}
+
+.editais-icons {
+    display: flex;
+    gap: 20px;
+    font-size: 2.5em;
+    color: #E6DFD1;
+    margin-bottom: 15px;
+}
+
+.editais-icons i {
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.editais-icons i:hover {
+    transform: scale(1.1);
+}
+
+.editais-widget p {
+    color: #a0a0a0;
+    font-size: 0.9em;
+}
 
 .section-header {
     display: flex;
@@ -153,6 +199,7 @@ body {
     align-items: center;
     margin-bottom: 15px;
 }
+
 .section-header input {
     background-color: #333;
     border: 1px solid #444;
@@ -161,22 +208,28 @@ body {
     border-radius: 8px;
 }
 
-.turmas-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 20px;
-}
-
 .turma-card {
     background-color: #252525;
     border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
     transition: transform 0.3s;
+    width: 100%;
 }
-.turma-card:hover { transform: translateY(-5px); }
-.turma-card img { width: 100%; display: block; }
-.turma-card .turma-title { padding: 15px; font-weight: 600; }
+
+.turma-card:hover {
+    transform: translateY(-5px);
+}
+
+.turma-card img {
+    width: 100%;
+    display: block;
+}
+
+.turma-card .turma-title {
+    padding: 15px;
+    font-weight: 600;
+}
 
 /* --- COLUNA DA DIREITA --- */
 .right-column {
@@ -198,32 +251,36 @@ body {
     padding-top: 20px;
 }
 
-.lembretes-widget h4 { margin-bottom: 15px; }
-.lembretes-widget ul { list-style: none; }
+.lembretes-widget h4 {
+    margin-bottom: 15px;
+}
+
+.lembretes-widget ul {
+    list-style: none;
+}
+
 .lembretes-widget li {
     background-color: #333;
     padding: 12px;
     border-radius: 8px;
     margin-bottom: 10px;
-    border-left: 4px solid #ff9800;
+    border-left: 4px solid #E6DFD1;
 }
 
 .lembretes-widget li strong {
     display: block;
     margin-bottom: 4px;
 }
+
 .lembretes-widget li span {
     font-size: 0.85em;
     color: #a0a0a0;
 }
-/* --- INÍCIO DA RESPONSIVIDADE --- */
 
-/* Para telas de notebooks menores e tablets em modo paisagem */
+/* --- RESPONSIVIDADE --- */
 @media (max-width: 1200px) {
     .dashboard-container {
-        /* Muda o layout de 3 para 2 colunas */
         grid-template-columns: 90px 1fr;
-        /* Define áreas para reordenar os elementos */
         grid-template-areas:
             "sidebar main"
             "sidebar right";
@@ -239,21 +296,18 @@ body {
 
     .right-column {
         grid-area: right;
-        height: auto; /* A altura não preenche mais a tela toda */
+        height: auto;
         margin-top: 0;
-        overflow-y: visible; /* A rolagem agora é do container principal */
+        overflow-y: visible;
     }
 }
 
-
-/* Para tablets em modo retrato e celulares */
 @media (max-width: 768px) {
     body {
-        overflow-y: auto; /* Garante que a página possa rolar */
+        overflow-y: auto;
     }
 
     .dashboard-container {
-        /* Converte para uma única coluna vertical */
         display: flex;
         flex-direction: column;
         height: auto;
@@ -261,9 +315,8 @@ body {
         padding: 10px;
     }
 
-    /* Transforma a barra lateral em uma 'tab bar' no rodapé */
     .sidebar {
-        order: 3; /* Move para o final */
+        order: 3;
         flex-direction: row;
         justify-content: space-around;
         position: sticky;
@@ -280,33 +333,36 @@ body {
     }
 
     .sidebar-logo {
-        display: none; /* Esconde o logo para economizar espaço */
+        display: none;
     }
 
     .sidebar-nav {
         width: 100%;
     }
 
-    .sidebar-nav nav ul {
+    .sidebar-nav ul {
         display: flex;
         justify-content: space-around;
         align-items: center;
         width: 100%;
+        padding: 0;
     }
 
     .sidebar-nav li a span {
-        display: none; /* Esconde o texto dos ícones */
+        display: none;
     }
 
     .sidebar-nav li a i {
         font-size: 1.8em;
     }
-    
+
     .sidebar-nav li.active a::before {
-        /* A marcação de ativo vira um ponto abaixo do ícone */
+        content: '';
+        background-color: #E6DFD1;
         width: 6px;
         height: 6px;
         border-radius: 50%;
+        position: absolute;
         left: 50%;
         top: auto;
         bottom: 5px;
@@ -314,12 +370,12 @@ body {
     }
 
     .main-content {
-        order: 1; /* Conteúdo principal vem primeiro */
+        order: 1;
         overflow-y: visible;
     }
 
     .right-column {
-        order: 2; /* Coluna da direita vem em segundo */
+        order: 2;
         margin-top: 20px;
     }
 
@@ -328,11 +384,40 @@ body {
         align-items: flex-start;
         gap: 15px;
     }
-    
-    .widgets-grid, .turmas-grid {
-        /* Garante que os cards não fiquem muito grandes na horizontal */
+
+    .widgets-grid {
         grid-template-columns: 1fr;
     }
 }
 
-/* --- FIM DA RESPONSIVIDADE --- */
+/* --- ESTILOS DO CARROSSEL DE TURMAS (CÓDIGO CORRIGIDO) --- */
+.turmas-carousel {
+    width: 100%;
+    height: auto;
+    padding: 10px 0;
+    margin-top: 15px;
+    /* Espaçamento do cabeçalho da seção */
+}
+
+.turmas-carousel .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.turmas-carousel .swiper-button-next,
+.turmas-carousel .swiper-button-prev {
+    color: #E6DFD1;
+    background-color: rgba(37, 37, 37, 0.5);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    transition: background-color 0.3s ease;
+}
+
+.turmas-carousel .swiper-button-next:hover,
+.turmas-carousel .swiper-button-prev:hover {
+    background-color: rgba(50, 50, 50, 0.8);
+}

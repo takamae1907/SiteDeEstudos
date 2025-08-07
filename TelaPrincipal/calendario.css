@@ -83,22 +83,13 @@ body {
 }
 
 .sidebar-nav li.active a,
+
 .sidebar-nav li a:hover {
     color: #ffffff;
     background-color: rgba(255, 152, 0, 0.2);
 }
 
-.sidebar-nav li.active a::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 60%;
-    width: 4px;
-    background-color: var(--accent-color);
-    border-radius: 0 4px 4px 0;
-}
+
 
 /* --- Conteúdo Principal (Centro) --- */
 .main-content {
