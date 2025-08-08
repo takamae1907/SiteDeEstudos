@@ -6,7 +6,6 @@
     <title>Dashboard - Meus Estudos</title>
     <link rel="stylesheet" href="TelaPrincipal.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
 <body>
 
@@ -19,7 +18,7 @@
                 <ul>
                     <li class="active"><a href="#"><i class="fa-solid fa-house"></i><span>Home</span></a></li>
                     <li><a href="calendario.html"><i class="fa-solid fa-calendar-days"></i><span>Cronograma</span></a></li>
-                    <li><a href="#"><i class="fa-solid fa-book-open"></i><span>Edital</span></a></li>
+                    <li><a href="edital.html"><i class="fa-solid fa-book-open"></i><span>Edital</span></a></li>
                     <li><a href="#"><i class="fa-solid fa-layer-group"></i><span>Flashcards</span></a></li>
                     <li><a href="#"><i class="fa-solid fa-list-check"></i><span>Questões</span></a></li>
                     <li><a href="#"><i class="fa-solid fa-map-location-dot"></i><span>Guia</span></a></li>
@@ -72,63 +71,42 @@
                     <h2>Minhas Turmas</h2>
                     <input type="text" placeholder="Pesquisar turmas...">
                 </div>
-
-                <div class="swiper turmas-carousel">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="turma-card">
-                                <img src="https://placehold.co/400x225/2a2a2a/e0e0e0?text=PF+2024" alt="Turma PF 2024">
-                                <div class="turma-title">PF 2024 PRÉ-EDITAL</div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="turma-card">
-                                <img src="https://placehold.co/400x225/2a2a2a/e0e0e0?text=PCES+2025" alt="Turma PCES 2025">
-                                <div class="turma-title">PCES 2025 INVESTIGADOR</div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                           <div class="turma-card">
-                                <img src="https://placehold.co/400x225/2a2a2a/e0e0e0?text=AGENTE" alt="Turma Agente">
-                                <div class="turma-title">AGENTE DE CUSTÓDIA</div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                           <div class="turma-card">
-                                <img src="https://placehold.co/400x225/2a2a2a/e0e0e0?text=PPRN" alt="Turma PPRN">
-                                <div class="turma-title">PPRN 2025 PRÉ-EDITAL</div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="turma-card">
-                                <img src="https://placehold.co/400x225/2a2a2a/e0e0e0?text=DELEGADO" alt="Turma Delegado">
-                                <div class="turma-title">DELEGADO CIVIL 2025</div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="turma-card">
-                                <img src="https://placehold.co/400x225/2a2a2a/e0e0e0?text=PM+SP" alt="Turma PM SP">
-                                <div class="turma-title">PM SÃO PAULO SOLDADO</div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                           <div class="turma-card">
-                                <img src="https://placehold.co/400x225/2a2a2a/e0e0e0?text=PRF+2025" alt="Turma PRF 2025">
-                                <div class="turma-title">PRF 2025 PRÉ-EDITAL</div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                           <div class="turma-card">
-                                <img src="https://placehold.co/400x225/2a2a2a/e0e0e0?text=TRIBUNAL" alt="Turma Tribunal">
-                                <div class="turma-title">TRIBUNAL REGIONAL</div>
-                            </div>
-                        </div>
+                <div class="turmas-grid">
+                    <div class="turma-card">
+                        <img src="fotos/foto1.jpg" alt="Turma PF 2024">
+                        <div class="turma-title">PF 2024 PRÉ-EDITAL</div>
                     </div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
+                    <div class="turma-card">
+                        <img src="fotos/foto2.jpg" alt="Turma PCES 2025">
+                        <div class="turma-title">PCES 2025 INVESTIGADOR</div>
+                    </div>
+                    <div class="turma-card">
+                       <img src="fotos/foto3.jpg" alt="Turma Agente">
+                        <div class="turma-title">AGENTE DE CUSTÓDIA</div>
+                    </div>
+                    <div class="turma-card">
+                       <img src="fotos/foto4.jpg" alt="Turma PPRN">
+                        <div class="turma-title">PPRN 2025 PRÉ-EDITAL</div>
+                    </div>
+                    <div class="turma-card">
+                        <img src="fotos/foto5.jpg" alt="Turma Delegado">
+                        <div class="turma-title">DELEGADO CIVIL 2025</div>
+                    </div>
+                    <div class="turma-card">
+                        <img src="fotos/foto6.jpg" alt="Turma PM SP">
+                        <div class="turma-title">PM SÃO PAULO SOLDADO</div>
+                    </div>
+                    <div class="turma-card">
+                       <img src="fotos/foto7.jpg" alt="Turma PRF 2025">
+                        <div class="turma-title">PRF 2025 PRÉ-EDITAL</div>
+                    </div>
+                    <div class="turma-card">
+                       <img src="fotos/foto8.jpg" alt="Turma Tribunal">
+                        <div class="turma-title">TRIBUNAL REGIONAL</div>
+                    </div>
                 </div>
             </section>
-            </main>
+        </main>
 
         <aside class="right-column">
             <div class="section-header">
@@ -143,7 +121,6 @@
         </aside>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="TelaPrincipal.js"></script>
 </body>
 </html>

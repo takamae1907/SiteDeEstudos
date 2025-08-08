@@ -208,13 +208,26 @@ body {
     border-radius: 8px;
 }
 
+.turmas-grid {
+    display: grid;
+    /* Para telas menores, os cards se ajustam automaticamente */
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+/* Para telas maiores, forçamos 4 colunas para criar o layout 4x2 */
+@media (min-width: 1200px) {
+    .turmas-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
 .turma-card {
     background-color: #252525;
     border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
     transition: transform 0.3s;
-    width: 100%;
 }
 
 .turma-card:hover {
@@ -388,36 +401,4 @@ body {
     .widgets-grid {
         grid-template-columns: 1fr;
     }
-}
-
-/* --- ESTILOS DO CARROSSEL DE TURMAS (CÓDIGO CORRIGIDO) --- */
-.turmas-carousel {
-    width: 100%;
-    height: auto;
-    padding: 10px 0;
-    margin-top: 15px;
-    /* Espaçamento do cabeçalho da seção */
-}
-
-.turmas-carousel .swiper-slide {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.turmas-carousel .swiper-button-next,
-.turmas-carousel .swiper-button-prev {
-    color: #E6DFD1;
-    background-color: rgba(37, 37, 37, 0.5);
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    transition: background-color 0.3s ease;
-}
-
-.turmas-carousel .swiper-button-next:hover,
-.turmas-carousel .swiper-button-prev:hover {
-    background-color: rgba(50, 50, 50, 0.8);
 }
