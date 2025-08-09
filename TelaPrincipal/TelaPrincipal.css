@@ -31,10 +31,29 @@ body {
     align-items: center;
 }
 
+/* ================================== */
+/* ESTILOS DA LOGO           */
+/* ================================== */
+
 .sidebar-logo {
-    font-size: 2.5em;
-    color: #E6DFD1;
-    margin-bottom: 30px;
+    /* Centraliza a logo dentro do seu espaço */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0; /* Espaçamento vertical */
+    margin-bottom: 20px; /* Espaço abaixo da logo, antes dos links do menu */
+}
+
+.sidebar-logo img {
+    width: 80px;  /* <<< Altere este valor para aumentar ou diminuir a logo! */
+    height: auto; /* Mantém a proporção da imagem */
+    transition: transform 0.3s ease; /* Efeito suave na animação */
+}
+
+/* Efeito opcional ao passar o mouse sobre a logo */
+.sidebar-logo img:hover {
+    transform: scale(1.1); /* Aumenta um pouco a logo */
+    cursor: pointer;
 }
 
 .sidebar-nav ul {

@@ -89,3 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const editalIcons = document.querySelectorAll('.editais-widget .editais-icons i');
     editalIcons.forEach(icon => icon.addEventListener('click', () => alert(`Ação de exemplo: "${icon.title}"`)));
 });
+ 
+       
+
+  
